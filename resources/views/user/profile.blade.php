@@ -24,8 +24,6 @@
             <!--  vid 28 -->
                 
                 <h5>{{ Auth::user()->dob->Format('l j F Y')}}({{Auth::user()->dob->age}}years old)</h5> 
-                
-                
             
                <button class="btn btn-success">Follow</button>
                 

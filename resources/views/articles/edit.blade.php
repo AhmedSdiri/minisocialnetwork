@@ -10,27 +10,29 @@
         <div class="panel panel-default">
             <div class="panel-heading">
             
-            Create Articles
+            Edit Articles
             </div>
                 <div class="panel-body">
 				<div class="form-group">
-                    <form action="/articles" method="POST">
+                    <form action="/articles/{{ $post->id }}" method="POST">
+                        {{ method_field('PUT') }}
                   {{csrf_field()}}
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 				<label for="content">Content</label>
-				<textarea name="content" class="form-control"></textarea>
+				<textarea name="content" class="form-control">
+                        {{$post->content }}</textarea>
 				</div>
             
                      <div class="checkbox"> 
                          <label>
-                          <input type="checkbox" name="live">
+                          <input type="checkbox" name="live" {{$post->live}}>
                                 live
                          </label>
                      </div>
                 
 				<div class="form-group">
 				<label for="post_on">Post on</label>
-				<input name="post_on" type="datetime-local"  class="form-control"></input>
+				<input name="post_on" type="datetime-local" value="{{$post->post_on}}" class="form-control"></input>
 				</div>
                 <input type="submit" class="btn btn-success pull-right" value="Submit">
                     </form>

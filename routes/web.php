@@ -25,6 +25,9 @@ Route::get('/profile/{username}', 'ProfileController@profile');
 
 
 //resource
-Route::resource('/articles','ArticlesController');
+Route::resource('/articles','PostsController');
 
 //Route::get('/articles','ArticlesController@create');
+
+
+Route::post('/articles','PostsController@store');

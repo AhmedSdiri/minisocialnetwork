@@ -16,7 +16,7 @@ class AddLiveAndPostOnFieldsToTheThePostsTable extends Migration
         Schema::table('posts', function (Blueprint $table) {
             
             $table->boolean('live')->default(0);
-           $table->timestamp('post_on')->nullable();
+            $table->timestamp('post_on')->nullable();
         });
     }
 
@@ -29,8 +29,7 @@ class AddLiveAndPostOnFieldsToTheThePostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             
-            $table->dropColumn(['live'],['post_on']);
-            //  $table->dropColumn(['post_on']);
+             $table->dropColumn(['live'],['post_on']);
         });
     }
 }
