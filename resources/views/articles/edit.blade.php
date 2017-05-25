@@ -25,14 +25,14 @@
             
                      <div class="checkbox"> 
                          <label>
-                          <input type="checkbox" name="live" {{$post->live}}>
+                          <input type="checkbox" name="live" {{ $post->live == 1 ? 'checked' : ''}}>
                                 live
                          </label>
                      </div>
                 
 				<div class="form-group">
 				<label for="post_on">Post on</label>
-				<input name="post_on" type="datetime-local" value="{{$post->post_on}}" class="form-control"></input>
+				<input name="post_on" type="datetime-local" value="{{$post->post_on->format('Y-m-d\TH:i:s')}}" class="form-control"></input>
 				</div>
                 <input type="submit" class="btn btn-success pull-right" value="Submit">
                     </form>

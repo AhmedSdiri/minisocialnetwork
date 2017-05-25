@@ -8,8 +8,13 @@ use App\Post;
 use Auth;
 //db facade
 use DB;
+
+
 class PostsController extends Controller
 {
+    
+    
+  
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-       $posts = Post::paginate(10);
+       
+      $posts = Post::paginate(10);
+        
+      // $posts = Post::withTrashed()->paginate(10);
+      //  $posts = Post::onlyTrashed()->paginate(10);
         //or the same thing
       //  $posts = DB::table('posts')->get();
        
@@ -25,6 +34,8 @@ class PostsController extends Controller
           //or the same thing
        // $posts = DB::table('posts')->whereLive(1)->get();
       //return $posts;
+        
+       
         
         return view('articles.index',compact('posts'));
     }
@@ -67,7 +78,9 @@ class PostsController extends Controller
       /*  //query builder !! be aware it will be without timestamp
         DB::table('posts')->insert($request->except('_token'));*/
         
-        
+        Post::create($request->all());
+        return redirect('/articles');   
+       
     }
 
     /**
@@ -92,7 +105,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-         $post = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
+         
         return view('articles.edit',compact('post'));
     }
 
@@ -105,7 +119,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return "i am the update function after clicking on the submit button of edit";
+         // return $request->all();
+        $post = Post::findOrFail($id);
+        if(!isset($request->live))
+            $post->update(array_merge($request->all(),['live' => false]));
+            else
+            $post->update($request->all());
+        
+        return redirect('/articles');
+      
+       
     }
 
     /**
@@ -116,6 +140,21 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       /*$post = Post::findOrFail($id);
+    
+       $post->delete();*/
+        
+        //or you can use destroy simply
+       Post::destroy($id);
+        
+        //delete entirly from the system
+        /*Post::forceDelete($id);*/
+        
+         return redirect('/articles');
+    }
+    public function restore($id)
+    {
+       $post = Post::findOrFail($id);
+        $post->restore();
     }
 }

@@ -12,13 +12,16 @@
             
                <span>
                   Article by me
+                   <small>
+                       <a href="/articles/{{ $post->id}}/edit">  Edit</a>
+                   </small>
                 </span>
                 <span class="pull-right">
-                {{ $post->created_at->diffForHumans()}}
+                {{ $post->created_at->diffForHumans() }}
                 </span>
                </div>
                 <div class="panel-body">
-				{{$post->content}}
+				{{ $post->content }}
                 </div>
      </div>
     </div>
